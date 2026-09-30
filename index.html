@@ -4,194 +4,670 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#111827">
-
   <title>MANSURI KIRANA</title>
-
   <link rel="stylesheet" href="style.css">
+
+  <style>
+    .screen{display:none;padding:16px 0 30px}
+    .screen.active{display:block}
+    .topbar{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+    .back{border:0;background:#111827;color:#fff;border-radius:12px;width:42px;height:42px;font-size:22px}
+    .screen-title{font-size:22px;font-weight:800}
+    .form-card{background:#fff;border-radius:18px;padding:16px;margin-bottom:14px;box-shadow:0 5px 20px rgba(0,0,0,.07)}
+    .form-card h3{margin:0 0 12px}
+    label{display:block;font-size:13px;font-weight:700;margin:10px 0 6px}
+    input,select{width:100%;box-sizing:border-box;padding:13px;border:1px solid #d7dce2;border-radius:12px;font-size:15px;background:#fff}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .product-row{border:1px solid #e1e5ea;border-radius:14px;padding:12px;margin-bottom:10px}
+    .remove{border:0;background:#fee2e2;color:#b91c1c;border-radius:10px;padding:8px 12px;margin-top:8px}
+    .add-btn,.save-btn,.whatsapp-btn,.sms-btn{width:100%;border:0;border-radius:13px;padding:14px;font-size:16px;font-weight:800;margin-top:8px}
+    .add-btn{background:#eef2ff;color:#3730a3}
+    .save-btn{background:#111827;color:#fff}
+    .whatsapp-btn{background:#16a34a;color:#fff}
+    .sms-btn{background:#2563eb;color:#fff}
+    .summary{background:#f8fafc;border-radius:14px;padding:14px;margin-top:12px}
+    .summary-line{display:flex;justify-content:space-between;padding:5px 0}
+    .grand{font-size:21px;font-weight:900}
+    .balance{color:#b91c1c;font-weight:800}
+    .hidden{display:none!important}
+    .saved-customer{padding:10px;background:#f8fafc;border-radius:10px;margin-top:8px;cursor:pointer}
+    .empty{text-align:center;color:#6b7280;padding:20px}
+  </style>
 </head>
 
 <body>
 
-  <div class="app">
+<div class="app">
 
-    <!-- HEADER -->
-    <header class="header">
-
-      <button class="menu-btn" onclick="toggleMenu()">☰</button>
-
-      <div class="brand">
-        <h1>MANSURI KIRANA</h1>
-        <p>AALAM MANSURI • 9754083323</p>
-      </div>
-
-    </header>
-
-    <!-- DATE -->
-    <div class="date-box">
-      <span>📅</span>
-      <span id="todayDate"></span>
+  <header class="header">
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    <div class="brand">
+      <h1>MANSURI KIRANA</h1>
+      <p>AALAM MANSURI • 9754083323</p>
     </div>
+  </header>
 
-    <!-- MAIN -->
-    <main class="home">
+  <div class="date-box">
+    📅 <span id="todayDate"></span>
+  </div>
 
-      <!-- BILL -->
-      <button class="main-card bill-card" onclick="openBill()">
-        <div class="card-icon">🧾</div>
-        <div>
-          <h2>BILL</h2>
-          <p>नया बिल बनाएँ</p>
-        </div>
-        <span class="arrow">›</span>
-      </button>
+  <!-- HOME -->
+  <main id="homeScreen" class="home screen active">
 
-      <!-- UDHARI / JAMA -->
-      <button class="main-card account-card" onclick="openAccount()">
-        <div class="card-icon">👤</div>
-        <div>
-          <h2>UDHARI / JAMA</h2>
-          <p>ग्राहक का हिसाब</p>
-        </div>
-        <span class="arrow">›</span>
-      </button>
+    <button class="main-card bill-card" onclick="showBill()">
+      <div class="card-icon">🧾</div>
+      <div>
+        <h2>BILL</h2>
+        <p>नया बिल बनाएँ</p>
+      </div>
+      <span class="arrow">›</span>
+    </button>
 
-    </main>
+    <button class="main-card account-card" onclick="showAccount()">
+      <div class="card-icon">👤</div>
+      <div>
+        <h2>UDHARI / JAMA</h2>
+        <p>ग्राहक का हिसाब</p>
+      </div>
+      <span class="arrow">›</span>
+    </button>
 
-    <!-- CUSTOMER MESSAGE -->
     <div class="customer-message">
       <p>“आपका भरोसा ही हमारी सबसे बड़ी पूंजी है। ❤️”</p>
       <p>“सही सामान, सही हिसाब और बेहतर सेवा—हर बार आपका स्वागत है।”</p>
     </div>
 
-    <!-- MENU -->
-    <div id="menuOverlay" class="menu-overlay" onclick="closeMenu(event)">
+  </main>
 
-      <div class="side-menu" onclick="event.stopPropagation()">
+  <!-- BILL SCREEN -->
+  <main id="billScreen" class="screen">
 
-        <div class="menu-header">
-          <h2>MANSURI KIRANA</h2>
-          <button onclick="toggleMenu()">×</button>
-        </div>
-
-        <button onclick="openSavedBills()">🧾 Saved Bills</button>
-        <button onclick="openStock()">📦 Stock</button>
-        <button onclick="openRates()">💰 Rate List</button>
-        <button onclick="openSalesReport()">📊 बिक्री Report</button>
-        <button onclick="openCustomers()">👥 Customers</button>
-        <button onclick="openLedger()">📒 पूरा हिसाब</button>
-        <button onclick="openUdhariReport()">📈 Udhari Report</button>
-        <button onclick="openJamaReport()">💵 Jama Report</button>
-        <button onclick="openStockReport()">📦 Stock Report</button>
-        <button onclick="openSettings()">⚙️ Settings</button>
-        <button onclick="openBackup()">💾 Backup / Restore</button>
-        <button onclick="openLanguage()">🌐 Language</button>
-        <button onclick="openAbout()">ℹ️ About</button>
-
-      </div>
-
+    <div class="topbar">
+      <button class="back" onclick="goHome()">‹</button>
+      <div class="screen-title">🧾 नया बिल</div>
     </div>
 
+    <div class="form-card">
+      <h3>👤 ग्राहक</h3>
+
+      <label>ग्राहक का नाम</label>
+      <input id="customerName" placeholder="जैसे: राहुल">
+
+      <label>मोबाइल नंबर</label>
+      <input id="customerMobile" type="tel" maxlength="10" placeholder="10 अंकों का मोबाइल">
+
+      <button class="add-btn" onclick="chooseContact()">
+        📱 फोन Contact से चुनें
+      </button>
+
+      <div id="customerSearchResult"></div>
+    </div>
+
+    <div class="form-card">
+      <h3>🛒 सामान</h3>
+
+      <div id="productsContainer"></div>
+
+      <button class="add-btn" onclick="addProductRow()">
+        ＋ सामान जोड़ें
+      </button>
+    </div>
+
+    <div class="form-card">
+      <h3>💰 भुगतान</h3>
+
+      <label>जमा राशि</label>
+      <input id="paidAmount" type="number" min="0" value="0" oninput="calculateBill()">
+
+      <div class="summary">
+        <div class="summary-line">
+          <span>Bill Total</span>
+          <strong id="billTotal">₹0.00</strong>
+        </div>
+
+        <div class="summary-line">
+          <span>पुराना Balance</span>
+          <strong id="oldBalance">₹0.00</strong>
+        </div>
+
+        <div class="summary-line">
+          <span>जमा</span>
+          <strong id="paidShow">₹0.00</strong>
+        </div>
+
+        <hr>
+
+        <div class="summary-line grand">
+          <span>नया Balance</span>
+          <strong id="newBalance">₹0.00</strong>
+        </div>
+      </div>
+
+      <button class="save-btn" onclick="saveBillNow()">
+        💾 BILL SAVE करें
+      </button>
+
+      <button id="whatsappButton" class="whatsapp-btn hidden" onclick="sendSavedWhatsApp()">
+        💬 WhatsApp पर Bill भेजें
+      </button>
+
+      <button id="smsButton" class="sms-btn hidden" onclick="sendSavedSMS()">
+        📩 SMS पर Bill भेजें
+      </button>
+    </div>
+
+  </main>
+
+  <!-- ACCOUNT SCREEN -->
+  <main id="accountScreen" class="screen">
+
+    <div class="topbar">
+      <button class="back" onclick="goHome()">‹</button>
+      <div class="screen-title">👤 UDHARI / JAMA</div>
+    </div>
+
+    <div class="form-card">
+      <h3>ग्राहक चुनें</h3>
+
+      <input id="accountSearch" placeholder="नाम या मोबाइल से खोजें"
+             oninput="searchAccountCustomer()">
+
+      <div id="accountCustomers"></div>
+    </div>
+
+    <div id="accountDetails" class="form-card hidden">
+      <h3 id="selectedCustomerName"></h3>
+      <p>मोबाइल: <span id="selectedCustomerMobile"></span></p>
+
+      <div class="summary">
+        <div class="summary-line grand">
+          <span>Balance</span>
+          <strong id="selectedCustomerBalance">₹0.00</strong>
+        </div>
+      </div>
+
+      <div class="row">
+        <button class="save-btn" onclick="addUdhari()">➕ UDHARI</button>
+        <button class="save-btn" onclick="addJama()">💰 JAMA</button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- MENU -->
+  <div id="menuOverlay" class="menu-overlay" onclick="closeMenu(event)">
+    <div class="side-menu" onclick="event.stopPropagation()">
+
+      <div class="menu-header">
+        <h2>MANSURI KIRANA</h2>
+        <button onclick="toggleMenu()">×</button>
+      </div>
+
+      <button onclick="showSavedBills()">🧾 Saved Bills</button>
+      <button onclick="showStock()">📦 Stock</button>
+      <button onclick="showRates()">💰 Rate List</button>
+      <button onclick="showSalesReport()">📊 बिक्री Report</button>
+      <button onclick="showCustomers()">👥 Customers</button>
+      <button onclick="showLedger()">📒 पूरा हिसाब</button>
+      <button onclick="showUdhariReport()">📈 Udhari Report</button>
+      <button onclick="showJamaReport()">💵 Jama Report</button>
+      <button onclick="showStockReport()">📦 Stock Report</button>
+      <button onclick="showSettings()">⚙️ Settings</button>
+      <button onclick="backupData()">💾 Backup / Restore</button>
+      <button onclick="showLanguage()">🌐 Language</button>
+      <button onclick="showAbout()">ℹ️ About</button>
+
+    </div>
   </div>
 
-  <!-- APP JAVASCRIPT -->
-  <script src="app.js"></script>
+</div>
 
-  <script>
+<script src="app.js"></script>
 
-    function setDate() {
-      const dateElement = document.getElementById("todayDate");
+<script>
 
-      if (dateElement) {
-        dateElement.textContent =
-          new Date().toLocaleDateString("hi-IN", {
-            day: "2-digit",
-            month: "long",
-            year: "numeric"
-          });
-      }
-    }
+let lastSavedBill = null;
+let selectedAccountCustomer = null;
 
-    function toggleMenu() {
-      const menu = document.getElementById("menuOverlay");
+function money(n) {
+  return "₹" + Number(n || 0).toFixed(2);
+}
 
-      if (menu) {
-        menu.classList.toggle("active");
-      }
-    }
+function setDate() {
+  document.getElementById("todayDate").textContent =
+    new Date().toLocaleDateString("hi-IN", {
+      day:"2-digit",
+      month:"long",
+      year:"numeric"
+    });
+}
 
-    function closeMenu(event) {
-      if (event.target.id === "menuOverlay") {
-        toggleMenu();
-      }
-    }
+function toggleMenu() {
+  document.getElementById("menuOverlay").classList.toggle("active");
+}
 
-    function openBill() {
-      alert("BILL section तैयार किया जा रहा है।");
-    }
+function closeMenu(e) {
+  if (e.target.id === "menuOverlay") toggleMenu();
+}
 
-    function openAccount() {
-      alert("UDHARI / JAMA section तैयार किया जा रहा है।");
-    }
+function hideScreens() {
+  document.querySelectorAll(".screen").forEach(x => x.classList.remove("active"));
+}
 
-    function openSavedBills() {
-      alert("Saved Bills");
-    }
+function goHome() {
+  hideScreens();
+  document.getElementById("homeScreen").classList.add("active");
+}
 
-    function openStock() {
-      alert("Stock");
-    }
+function showBill() {
+  hideScreens();
+  document.getElementById("billScreen").classList.add("active");
 
-    function openRates() {
-      alert("Rate List");
-    }
+  if (!document.querySelector(".product-row")) {
+    addProductRow();
+  }
 
-    function openSalesReport() {
-      alert("बिक्री Report");
-    }
+  updateOldBalance();
+}
 
-    function openCustomers() {
-      alert("Customers");
-    }
+function showAccount() {
+  hideScreens();
+  document.getElementById("accountScreen").classList.add("active");
+  searchAccountCustomer();
+}
 
-    function openLedger() {
-      alert("पूरा हिसाब");
-    }
+function chooseContact() {
 
-    function openUdhariReport() {
-      alert("Udhari Report");
-    }
+  if ("contacts" in navigator && navigator.contacts.select) {
 
-    function openJamaReport() {
-      alert("Jama Report");
-    }
+    navigator.contacts.select(
+      ["name","tel"],
+      {multiple:false}
+    ).then(contacts => {
 
-    function openStockReport() {
-      alert("Stock Report");
-    }
+      if (!contacts.length) return;
 
-    function openSettings() {
-      alert("Settings");
-    }
+      const c = contacts[0];
 
-    function openBackup() {
-      if (window.MansuriKirana) {
-        window.MansuriKirana.exportBackup();
-      }
-    }
+      document.getElementById("customerName").value =
+        c.name && c.name.length ? c.name[0] : "";
 
-    function openLanguage() {
-      alert("Language");
-    }
+      document.getElementById("customerMobile").value =
+        c.tel && c.tel.length ? c.tel[0].replace(/\D/g,"").slice(-10) : "";
 
-    function openAbout() {
-      alert(
-        "MANSURI KIRANA\nAALAM MANSURI\n9754083323"
+      updateOldBalance();
+
+    }).catch(() => {
+      alert("Contact नहीं चुना गया।");
+    });
+
+  } else {
+
+    alert(
+      "आपके फोन/Chrome में Contact Picker उपलब्ध नहीं है।\n\n" +
+      "कृपया ग्राहक का नाम और मोबाइल नंबर नीचे manually डालें।"
+    );
+  }
+}
+
+function addProductRow() {
+
+  const box = document.getElementById("productsContainer");
+
+  const row = document.createElement("div");
+  row.className = "product-row";
+
+  row.innerHTML = `
+    <label>सामान</label>
+    <input class="p-name" placeholder="जैसे: गेहूं">
+
+    <div class="row">
+      <div>
+        <label>मात्रा</label>
+        <input class="p-qty" type="number" min="0" value="1"
+               oninput="calculateBill()">
+      </div>
+
+      <div>
+        <label>Rate</label>
+        <input class="p-rate" type="number" min="0"
+               placeholder="₹ Rate"
+               oninput="calculateBill()">
+      </div>
+    </div>
+
+    <label>Unit</label>
+    <select class="p-unit">
+      <option>Kg</option>
+      <option>Gram</option>
+      <option>Litre</option>
+      <option>Piece</option>
+      <option>Packet</option>
+      <option>Dozen</option>
+    </select>
+
+    <div class="summary-line">
+      <span>Amount</span>
+      <strong class="p-amount">₹0.00</strong>
+    </div>
+
+    <button class="remove" onclick="this.parentElement.remove();calculateBill()">
+      हटाएँ
+    </button>
+  `;
+
+  box.appendChild(row);
+  calculateBill();
+}
+
+function getRows() {
+  return [...document.querySelectorAll(".product-row")];
+}
+
+function calculateBill() {
+
+  let total = 0;
+
+  getRows().forEach(row => {
+
+    const qty = Number(row.querySelector(".p-qty").value) || 0;
+    const rate = Number(row.querySelector(".p-rate").value) || 0;
+    const amount = qty * rate;
+
+    row.querySelector(".p-amount").textContent = money(amount);
+
+    total += amount;
+  });
+
+  const paid =
+    Number(document.getElementById("paidAmount").value) || 0;
+
+  const name =
+    document.getElementById("customerName").value.trim();
+
+  let old = 0;
+
+  if (name && window.MansuriKirana) {
+
+    const customer =
+      window.MansuriKirana.data().customers.find(
+        c => c.name.toLowerCase() === name.toLowerCase()
       );
+
+    if (customer) old = Number(customer.balance) || 0;
+  }
+
+  document.getElementById("billTotal").textContent = money(total);
+  document.getElementById("oldBalance").textContent = money(old);
+  document.getElementById("paidShow").textContent = money(paid);
+  document.getElementById("newBalance").textContent =
+    money(old + total - paid);
+}
+
+function updateOldBalance() {
+  calculateBill();
+}
+
+document.getElementById("customerName").addEventListener("input", calculateBill);
+
+function saveBillNow() {
+
+  const name =
+    document.getElementById("customerName").value.trim();
+
+  const mobile =
+    document.getElementById("customerMobile").value.trim();
+
+  if (!name) {
+    alert("कृपया ग्राहक का नाम डालें।");
+    return;
+  }
+
+  const rows = getRows();
+
+  const items = [];
+
+  rows.forEach(row => {
+
+    const itemName =
+      row.querySelector(".p-name").value.trim();
+
+    const qty =
+      Number(row.querySelector(".p-qty").value) || 0;
+
+    const rate =
+      Number(row.querySelector(".p-rate").value) || 0;
+
+    const unit =
+      row.querySelector(".p-unit").value;
+
+    if (itemName && qty > 0) {
+      items.push({
+        name:itemName,
+        qty,
+        rate,
+        unit
+      });
     }
+  });
 
-    setDate();
+  if (!items.length) {
+    alert("कम से कम एक सामान डालें।");
+    return;
+  }
 
-  </script>
+  let data = window.MansuriKirana.data();
+
+  let customer =
+    data.customers.find(c =>
+      c.mobile === mobile && mobile !== ""
+    );
+
+  if (!customer) {
+    customer =
+      data.customers.find(c =>
+        c.name.toLowerCase() === name.toLowerCase()
+      );
+  }
+
+  if (!customer) {
+    customer = window.MansuriKirana.addCustomer(name, mobile);
+  } else if (mobile && !customer.mobile) {
+    customer.mobile = mobile;
+    window.MansuriKirana.saveData();
+  }
+
+  const paid =
+    Number(document.getElementById("paidAmount").value) || 0;
+
+  lastSavedBill =
+    window.MansuriKirana.createBill(
+      customer.id,
+      items,
+      paid
+    );
+
+  if (!lastSavedBill) return;
+
+  alert(
+    "✅ Bill सफलतापूर्वक Save हो गया!\n\n" +
+    "Bill No: " + lastSavedBill.billNo + "\n" +
+    "Total: " + money(lastSavedBill.total) + "\n" +
+    "New Balance: " + money(lastSavedBill.newBalance)
+  );
+
+  document.getElementById("whatsappButton").classList.remove("hidden");
+  document.getElementById("smsButton").classList.remove("hidden");
+}
+
+function sendSavedWhatsApp() {
+
+  if (!lastSavedBill) return;
+
+  if (!lastSavedBill.customerMobile) {
+    alert("ग्राहक का मोबाइल नंबर उपलब्ध नहीं है।");
+    return;
+  }
+
+  window.MansuriKirana.shareOnWhatsApp(lastSavedBill);
+}
+
+function sendSavedSMS() {
+
+  if (!lastSavedBill) return;
+
+  if (!lastSavedBill.customerMobile) {
+    alert("ग्राहक का मोबाइल नंबर उपलब्ध नहीं है।");
+    return;
+  }
+
+  window.MansuriKirana.shareOnSMS(lastSavedBill);
+}
+
+/* ACCOUNT */
+
+function searchAccountCustomer() {
+
+  const box = document.getElementById("accountCustomers");
+  const q =
+    document.getElementById("accountSearch").value
+      .trim()
+      .toLowerCase();
+
+  const customers =
+    window.MansuriKirana.data().customers.filter(c =>
+      !q ||
+      c.name.toLowerCase().includes(q) ||
+      String(c.mobile).includes(q)
+    );
+
+  if (!customers.length) {
+    box.innerHTML =
+      `<div class="empty">अभी कोई ग्राहक नहीं है।</div>`;
+    return;
+  }
+
+  box.innerHTML = customers.map(c => `
+    <div class="saved-customer"
+         onclick="selectAccountCustomer('${c.id}')">
+      <strong>${escapeHtml(c.name)}</strong><br>
+      📱 ${escapeHtml(c.mobile || "मोबाइल नहीं")}<br>
+      💰 Balance: ${money(c.balance)}
+    </div>
+  `).join("");
+}
+
+function selectAccountCustomer(id) {
+
+  selectedAccountCustomer =
+    window.MansuriKirana.findCustomer(id);
+
+  if (!selectedAccountCustomer) return;
+
+  document.getElementById("accountDetails")
+    .classList.remove("hidden");
+
+  document.getElementById("selectedCustomerName").textContent =
+    selectedAccountCustomer.name;
+
+  document.getElementById("selectedCustomerMobile").textContent =
+    selectedAccountCustomer.mobile || "-";
+
+  document.getElementById("selectedCustomerBalance").textContent =
+    money(selectedAccountCustomer.balance);
+}
+
+function addUdhari() {
+
+  if (!selectedAccountCustomer) return;
+
+  const amount =
+    prompt("UDHARI राशि डालें:");
+
+  if (amount === null) return;
+
+  const result =
+    window.MansuriKirana.addTransaction(
+      selectedAccountCustomer.id,
+      "udhari",
+      Number(amount),
+      "Manual Udhari"
+    );
+
+  if (result) {
+    alert("✅ Udhari दर्ज हो गई।");
+    selectAccountCustomer(selectedAccountCustomer.id);
+    searchAccountCustomer();
+  }
+}
+
+function addJama() {
+
+  if (!selectedAccountCustomer) return;
+
+  const amount =
+    prompt("JAMA राशि डालें:");
+
+  if (amount === null) return;
+
+  const result =
+    window.MansuriKirana.addTransaction(
+      selectedAccountCustomer.id,
+      "jama",
+      Number(amount),
+      "Manual Jama"
+    );
+
+  if (result) {
+    alert("✅ Jama दर्ज हो गया।");
+    selectAccountCustomer(selectedAccountCustomer.id);
+    searchAccountCustomer();
+  }
+}
+
+function escapeHtml(text) {
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;");
+}
+
+/* MENU */
+
+function closeForMenu() {
+  document.getElementById("menuOverlay").classList.remove("active");
+}
+
+function menuMessage(title) {
+  closeForMenu();
+  alert(title + " section अगली screen में जोड़ा जाएगा।");
+}
+
+function showSavedBills(){menuMessage("Saved Bills")}
+function showStock(){menuMessage("Stock")}
+function showRates(){menuMessage("Rate List")}
+function showSalesReport(){menuMessage("बिक्री Report")}
+function showCustomers(){showAccount();closeForMenu()}
+function showLedger(){menuMessage("पूरा हिसाब")}
+function showUdhariReport(){menuMessage("Udhari Report")}
+function showJamaReport(){menuMessage("Jama Report")}
+function showStockReport(){menuMessage("Stock Report")}
+function showSettings(){menuMessage("Settings")}
+function showLanguage(){menuMessage("Language")}
+function showAbout(){
+  closeForMenu();
+  alert("MANSURI KIRANA\nAALAM MANSURI\n9754083323");
+}
+
+function backupData() {
+  closeForMenu();
+  window.MansuriKirana.exportBackup();
+}
+
+setDate();
+
+</script>
 
 </body>
 </html>

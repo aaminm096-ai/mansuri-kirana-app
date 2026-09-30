@@ -1,0 +1,176 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  color: #111827;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app {
+  width: 100%;
+  max-width: 520px;
+  min-height: 100vh;
+  margin: auto;
+  background: #ffffff;
+}
+
+header {
+  background: #111827;
+  color: #ffffff;
+  padding: 22px 20px;
+  text-align: center;
+  position: relative;
+}
+
+.shop-name {
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.owner {
+  margin-top: 7px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.menu-btn {
+  position: absolute;
+  right: 16px;
+  top: 20px;
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 12px;
+  background: rgba(255,255,255,.12);
+  color: #ffffff;
+  font-size: 25px;
+}
+
+.date {
+  padding: 12px 18px;
+  border-bottom: 1px solid #e5e7eb;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+main {
+  padding: 24px 20px;
+}
+
+.main-card {
+  width: 100%;
+  min-height: 150px;
+  border: 0;
+  border-radius: 24px;
+  background: #111827;
+  color: #ffffff;
+  box-shadow: 0 12px 30px rgba(0,0,0,.14);
+  transition: transform .15s ease;
+}
+
+.main-card:active {
+  transform: scale(.98);
+}
+
+.main-card .icon {
+  display: block;
+  font-size: 45px;
+  margin-bottom: 10px;
+}
+
+.main-card strong {
+  font-size: 24px;
+  letter-spacing: 1px;
+}
+
+.secondary-card {
+  width: 100%;
+  margin-top: 18px;
+  min-height: 82px;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  background: #ffffff;
+  color: #111827;
+  font-size: 18px;
+  font-weight: 700;
+  box-shadow: 0 5px 18px rgba(0,0,0,.06);
+}
+
+.secondary-card span {
+  font-size: 30px;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.footer {
+  text-align: center;
+  color: #6b7280;
+  font-size: 12px;
+  padding: 24px 18px;
+}
+
+.menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0,0,0,.45);
+}
+
+.menu-panel {
+  width: min(310px, 86vw);
+  height: 100%;
+  margin-left: auto;
+  padding: 22px 18px;
+  background: #ffffff;
+  overflow-y: auto;
+  box-shadow: -8px 0 25px rgba(0,0,0,.15);
+}
+
+.menu-title {
+  margin: 5px 0 20px;
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.close-menu {
+  float: right;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 10px;
+  background: #f3f4f6;
+  font-size: 24px;
+}
+
+.menu-item {
+  display: block;
+  width: 100%;
+  margin-bottom: 9px;
+  padding: 14px;
+  border: 0;
+  border-radius: 13px;
+  background: #f3f4f6;
+  color: #111827;
+  text-align: left;
+  font-size: 15px;
+}
+
+.menu-item:active {
+  background: #e5e7eb;
+}

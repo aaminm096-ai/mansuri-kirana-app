@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111827">
+  <title>MANSURI KIRANA</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f6f8;
+      color: #111827;
+    }
+
+    .app {
+      max-width: 500px;
+      min-height: 100vh;
+      margin: auto;
+      background: #ffffff;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 18px;
+      text-align: center;
+      position: relative;
+    }
+
+    .shop-name {
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .owner {
+      margin-top: 8px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .menu-btn {
+      position: absolute;
+      right: 15px;
+      top: 18px;
+      border: 0;
+      background: transparent;
+      color: white;
+      font-size: 27px;
+      cursor: pointer;
+    }
+
+    .date {
+      padding: 12px 18px;
+      color: #6b7280;
+      font-size: 13px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    main {
+      padding: 22px;
+    }
+
+    .main-card {
+      width: 100%;
+      border: 0;
+      border-radius: 20px;
+      padding: 30px 20px;
+      margin-bottom: 18px;
+      cursor: pointer;
+      background: #111827;
+      color: white;
+      box-shadow: 0 8px 25px rgba(0,0,0,.12);
+    }
+
+    .main-card .icon {
+      font-size: 42px;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .main-card strong {
+      font-size: 22px;
+    }
+
+    .secondary-card {
+      width: 100%;
+      border: 1px solid #e5e7eb;
+      border-radius: 18px;
+      padding: 22px;
+      background: white;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .secondary-card span {
+      font-size: 28px;
+      margin-right: 10px;
+    }
+
+    .menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.45);
+      z-index: 10;
+    }
+
+    .menu-panel {
+      margin-left: auto;
+      width: 290px;
+      height: 100%;
+      background: white;
+      padding: 22px;
+      overflow-y: auto;
+    }
+
+    .menu-title {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .menu-item {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 14px;
+      margin-bottom: 8px;
+      border: 0;
+      border-radius: 12px;
+      background: #f3f4f6;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .close-menu {
+      float: right;
+      border: 0;
+      background: transparent;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .footer {
+      text-align: center;
+      color: #9ca3af;
+      font-size: 12px;
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <header>
+    <button class="menu-btn" onclick="openMenu()">☰</button>
+
+    <div class="shop-name">MANSURI KIRANA</div>
+
+    <div class="owner">
+      AALAM MANSURI<br>
+      9754083323
+    </div>
+  </header>
+
+  <div class="date" id="todayDate"></div>
+
+  <main>
+
+    <button class="main-card" onclick="openBill()">
+      <span class="icon">🧾</span>
+      <strong>BILL</strong>
+    </button>
+
+    <button class="secondary-card" onclick="openUdhari()">
+      <span>👤</span>
+      UDHARI / JAMA
+    </button>
+
+  </main>
+
+  <div class="footer">
+    आपका भरोसा ही हमारी सबसे बड़ी पूंजी है। ❤️
+  </div>
+
+</div>
+
+<!-- MENU -->
+
+<div class="menu" id="menu">
+
+  <div class="menu-panel">
+
+    <button class="close-menu" onclick="closeMenu()">×</button>
+
+    <div class="menu-title">☰ MENU</div>
+
+    <button class="menu-item">🧾 Saved Bills</button>
+    <button class="menu-item">📦 Stock</button>
+    <button class="menu-item">💰 Rate List</button>
+    <button class="menu-item">📊 बिक्री Report</button>
+    <button class="menu-item">👥 Customers</button>
+    <button class="menu-item">📒 पूरा हिसाब</button>
+    <button class="menu-item">📈 Udhari Report</button>
+    <button class="menu-item">💵 Jama Report</button>
+    <button class="menu-item">📦 Stock Report</button>
+    <button class="menu-item">⚙️ Settings</button>
+    <button class="menu-item">💾 Backup / Restore</button>
+    <button class="menu-item">🌐 Language</button>
+
+  </div>
+
+</div>
+
+<script>
+
+  const date = new Date();
+
+  document.getElementById("todayDate").innerText =
+    "Date: " +
+    date.toLocaleDateString("en-IN");
+
+  function openMenu() {
+    document.getElementById("menu").style.display = "block";
+  }
+
+  function closeMenu() {
+    document.getElementById("menu").style.display = "none";
+  }
+
+  function openBill() {
+    alert("BILL system अगली file में जोड़ा जाएगा।");
+  }
+
+  function openUdhari() {
+    alert("UDHARI / JAMA system अगली file में जोड़ा जाएगा।");
+  }
+
+</script>
+
+</body>
+</html>

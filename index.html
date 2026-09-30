@@ -193,7 +193,80 @@
     </div>
 
   </main>
+<!-- SETTINGS SCREEN -->
+<main id="settingsScreen" class="screen">
 
+  <div class="topbar">
+    <button class="back" onclick="goHome()">‹</button>
+    <div class="screen-title">⚙️ Settings</div>
+  </div>
+
+  <div class="form-card">
+    <h3>🏪 दुकान की जानकारी</h3>
+
+    <label>Shop Name</label>
+    <input id="setShopName" placeholder="MANSURI KIRANA">
+
+    <label>Owner Name</label>
+    <input id="setOwnerName" placeholder="AALAM MANSURI">
+
+    <label>Mobile Number</label>
+    <input id="setMobile" type="tel" maxlength="10">
+
+    <label>Address</label>
+    <input id="setAddress" placeholder="दुकान का पता">
+  </div>
+
+  <div class="form-card">
+    <h3>🧾 Bill Settings</h3>
+
+    <label>Bill Number</label>
+    <input id="setBillNo" placeholder="MK-0001">
+
+    <label>Bill Footer</label>
+    <input id="setFooter"
+           placeholder="आपका भरोसा ही हमारी सबसे बड़ी पूंजी है। ❤️">
+  </div>
+
+  <div class="form-card">
+    <h3>💬 WhatsApp / SMS</h3>
+
+    <label>WhatsApp Bill Message</label>
+    <textarea id="setWhatsappMessage"
+      style="width:100%;box-sizing:border-box;padding:13px;border:1px solid #d7dce2;border-radius:12px;min-height:100px;"
+      placeholder="WhatsApp Bill message"></textarea>
+
+    <label>SMS Message</label>
+    <textarea id="setSmsMessage"
+      style="width:100%;box-sizing:border-box;padding:13px;border:1px solid #d7dce2;border-radius:12px;min-height:100px;"
+      placeholder="SMS message"></textarea>
+
+    <label>Udhari Receipt Message</label>
+    <textarea id="setUdhariMessage"
+      style="width:100%;box-sizing:border-box;padding:13px;border:1px solid #d7dce2;border-radius:12px;min-height:80px;"
+      placeholder="Udhari receipt message"></textarea>
+
+    <label>Jama Receipt Message</label>
+    <textarea id="setJamaMessage"
+      style="width:100%;box-sizing:border-box;padding:13px;border:1px solid #d7dce2;border-radius:12px;min-height:80px;"
+      placeholder="Jama receipt message"></textarea>
+  </div>
+
+  <div class="form-card">
+    <h3>❤️ Customer Message</h3>
+
+    <label>Line 1</label>
+    <input id="setCustomerLine1">
+
+    <label>Line 2</label>
+    <input id="setCustomerLine2">
+  </div>
+
+  <button class="save-btn" onclick="saveSettingsNow()">
+    💾 Settings Save करें
+  </button>
+
+</main>
   <!-- MENU -->
   <div id="menuOverlay" class="menu-overlay" onclick="closeMenu(event)">
     <div class="side-menu" onclick="event.stopPropagation()">
@@ -653,7 +726,98 @@ function showLedger(){menuMessage("पूरा हिसाब")}
 function showUdhariReport(){menuMessage("Udhari Report")}
 function showJamaReport(){menuMessage("Jama Report")}
 function showStockReport(){menuMessage("Stock Report")}
-function showSettings(){menuMessage("Settings")}
+function showSettings() {
+  closeForMenu();
+
+  hideScreens();
+
+  document.getElementById("settingsScreen").classList.add("active");
+
+  const s = window.MansuriKirana.data().settings || {};
+
+  document.getElementById("setShopName").value =
+    s.shopName || "MANSURI KIRANA";
+
+  document.getElementById("setOwnerName").value =
+    s.ownerName || "AALAM MANSURI";
+
+  document.getElementById("setMobile").value =
+    s.mobile || "9754083323";
+
+  document.getElementById("setAddress").value =
+    s.address || "";
+
+  document.getElementById("setBillNo").value =
+    s.billNo || "MK-0001";
+
+  document.getElementById("setFooter").value =
+    s.footer || "आपका भरोसा ही हमारी सबसे बड़ी पूंजी है। ❤️";
+
+  document.getElementById("setWhatsappMessage").value =
+    s.whatsappBillMessage || "";
+
+  document.getElementById("setSmsMessage").value =
+    s.smsMessage || "";
+
+  document.getElementById("setUdhariMessage").value =
+    s.udhariReceiptMessage || "";
+
+  document.getElementById("setJamaMessage").value =
+    s.jamaReceiptMessage || "";
+
+  document.getElementById("setCustomerLine1").value =
+    s.customerLine1 || "आपका भरोसा ही हमारी सबसे बड़ी पूंजी है। ❤️";
+
+  document.getElementById("setCustomerLine2").value =
+    s.customerLine2 || "सही सामान, सही हिसाब और बेहतर सेवा—हर बार आपका स्वागत है।";
+}function saveSettingsNow() {
+
+  const data = window.MansuriKirana.data();
+
+  if (!data.settings) {
+    data.settings = {};
+  }
+
+  data.settings.shopName =
+    document.getElementById("setShopName").value.trim();
+
+  data.settings.ownerName =
+    document.getElementById("setOwnerName").value.trim();
+
+  data.settings.mobile =
+    document.getElementById("setMobile").value.trim();
+
+  data.settings.address =
+    document.getElementById("setAddress").value.trim();
+
+  data.settings.billNo =
+    document.getElementById("setBillNo").value.trim();
+
+  data.settings.footer =
+    document.getElementById("setFooter").value.trim();
+
+  data.settings.whatsappBillMessage =
+    document.getElementById("setWhatsappMessage").value.trim();
+
+  data.settings.smsMessage =
+    document.getElementById("setSmsMessage").value.trim();
+
+  data.settings.udhariReceiptMessage =
+    document.getElementById("setUdhariMessage").value.trim();
+
+  data.settings.jamaReceiptMessage =
+    document.getElementById("setJamaMessage").value.trim();
+
+  data.settings.customerLine1 =
+    document.getElementById("setCustomerLine1").value.trim();
+
+  data.settings.customerLine2 =
+    document.getElementById("setCustomerLine2").value.trim();
+
+  window.MansuriKirana.saveData();
+
+  alert("✅ Settings सफलतापूर्वक Save हो गईं।");
+}
 function showLanguage(){menuMessage("Language")}
 function showAbout(){
   closeForMenu();

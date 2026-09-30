@@ -1,0 +1,1 @@
+# mansuri-kirana-app

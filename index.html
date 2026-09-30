@@ -1,1849 +1,910 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#111827">
   <title>MANSURI KIRANA</title>
   <link rel="stylesheet" href="style.css">
-
-  <style>
-    .screen{display:none;padding:16px 0 30px}
-    .screen.active{display:block}
-
-    .topbar{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      margin-bottom:16px
-    }
-
-    .back{
-      border:0;
-      background:#111827;
-      color:#fff;
-      border-radius:12px;
-      width:42px;
-      height:42px;
-      font-size:22px
-    }
-
-    .screen-title{
-      font-size:22px;
-      font-weight:800
-    }
-
-    .form-card{
-      background:#fff;
-      border-radius:18px;
-      padding:16px;
-      margin-bottom:14px;
-      box-shadow:0 5px 20px rgba(0,0,0,.07)
-    }
-
-    .form-card h3{
-      margin:0 0 12px
-    }
-
-    label{
-      display:block;
-      font-size:13px;
-      font-weight:700;
-      margin:10px 0 6px
-    }
-
-    input,select,textarea{
-      width:100%;
-      box-sizing:border-box;
-      padding:13px;
-      border:1px solid #d7dce2;
-      border-radius:12px;
-      font-size:15px;
-      background:#fff
-    }
-
-    textarea{
-      min-height:90px;
-      resize:vertical
-    }
-
-    .row{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px
-    }
-
-    .product-row{
-      border:1px solid #e1e5ea;
-      border-radius:14px;
-      padding:12px;
-      margin-bottom:10px
-    }
-
-    .remove{
-      border:0;
-      background:#fee2e2;
-      color:#b91c1c;
-      border-radius:10px;
-      padding:8px 12px;
-      margin-top:8px
-    }
-
-    .add-btn,.save-btn,.whatsapp-btn,.sms-btn{
-      width:100%;
-      border:0;
-      border-radius:13px;
-      padding:14px;
-      font-size:16px;
-      font-weight:800;
-      margin-top:8px
-    }
-
-    .add-btn{
-      background:#eef2ff;
-      color:#3730a3
-    }
-
-    .save-btn{
-      background:#111827;
-      color:#fff
-    }
-
-    .whatsapp-btn{
-      background:#16a34a;
-      color:#fff
-    }
-
-    .sms-btn{
-      background:#2563eb;
-      color:#fff
-    }
-
-    .summary{
-      background:#f8fafc;
-      border-radius:14px;
-      padding:14px;
-      margin-top:12px
-    }
-
-    .summary-line{
-      display:flex;
-      justify-content:space-between;
-      padding:5px 0
-    }
-
-    .grand{
-      font-size:21px;
-      font-weight:900
-    }
-
-    .balance{
-      color:#b91c1c;
-      font-weight:800
-    }
-
-    .hidden{
-      display:none!important
-    }
-
-    .saved-customer{
-      padding:10px;
-      background:#f8fafc;
-      border-radius:10px;
-      margin-top:8px;
-      cursor:pointer
-    }
-
-    .empty{
-      text-align:center;
-      color:#6b7280;
-      padding:20px
-    }
-
-    .settings-note{
-      background:#f8fafc;
-      padding:12px;
-      border-radius:12px;
-      color:#4b5563;
-      font-size:13px;
-      margin-bottom:12px
-    }
-  </style>
 </head>
 
 <body>
 
-<div class="app">
+<header class="topbar">
+  <button class="icon-btn" onclick="toggleMenu()">☰</button>
 
-  <!-- HEADER -->
-  <header class="header">
-    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+  <div>
+    <b id="brandName">MANSURI KIRANA</b>
+    <small id="brandOwner">AALAM MANSURI • 9754083323</small>
+  </div>
+</header>
 
-    <div class="brand">
-      <h1 id="headerShopName">MANSURI KIRANA</h1>
-      <p id="headerOwner">AALAM MANSURI • 9754083323</p>
-    </div>
-  </header>
 
-  <div class="date-box">
-    📅 <span id="todayDate"></span>
+<!-- MENU -->
+<div id="menu" class="drawer hidden">
+
+  <div class="drawer-head">
+    <b>मेनू</b>
+    <button class="icon-btn" onclick="toggleMenu()">✕</button>
   </div>
 
-
-  <!-- HOME -->
-  <main id="homeScreen" class="home screen active">
-
-    <button class="main-card bill-card" onclick="showBill()">
-      <div class="card-icon">🧾</div>
-
-      <div>
-        <h2>BILL</h2>
-        <p>नया बिल बनाएँ</p>
-      </div>
-
-      <span class="arrow">›</span>
-    </button>
-
-
-    <button class="main-card account-card" onclick="showAccount()">
-      <div class="card-icon">👤</div>
-
-      <div>
-        <h2>UDHARI / JAMA</h2>
-        <p>ग्राहक का हिसाब</p>
-      </div>
-
-      <span class="arrow">›</span>
-    </button>
-
-
-    <div class="customer-message">
-      <p id="homeLine1">
-        “आपका भरोसा ही हमारी सबसे बड़ी पूंजी है। ❤️”
-      </p>
-
-      <p id="homeLine2">
-        “सही सामान, सही हिसाब और बेहतर सेवा—हर बार आपका स्वागत है।”
-      </p>
-    </div>
-
-  </main>
-
-
-  <!-- BILL SCREEN -->
-  <main id="billScreen" class="screen">
-
-    <div class="topbar">
-      <button class="back" onclick="goHome()">‹</button>
-      <div class="screen-title">🧾 नया बिल</div>
-    </div>
-
-
-    <div class="form-card">
-
-      <h3>👤 ग्राहक</h3>
-
-      <label>ग्राहक का नाम</label>
-
-      <input
-        id="customerName"
-        placeholder="जैसे: राहुल"
-      >
-
-
-      <label>मोबाइल नंबर</label>
-
-      <input
-        id="customerMobile"
-        type="tel"
-        maxlength="10"
-        placeholder="10 अंकों का मोबाइल"
-      >
-
-
-      <button class="add-btn" onclick="chooseContact()">
-        📱 फोन Contact से चुनें
-      </button>
-
-      <div id="customerSearchResult"></div>
-
-    </div>
-
-
-    <div class="form-card">
-
-      <h3>🛒 सामान</h3>
-
-      <div id="productsContainer"></div>
-
-      <button class="add-btn" onclick="addProductRow()">
-        ＋ सामान जोड़ें
-      </button>
-
-    </div>
-
-
-    <div class="form-card">
-
-      <h3>💰 भुगतान</h3>
-
-      <label>जमा राशि</label>
-
-      <input
-        id="paidAmount"
-        type="number"
-        min="0"
-        value="0"
-        oninput="calculateBill()"
-      >
-
-
-      <div class="summary">
-
-        <div class="summary-line">
-          <span>Bill Total</span>
-          <strong id="billTotal">₹0.00</strong>
-        </div>
-
-        <div class="summary-line">
-          <span>पुराना Balance</span>
-          <strong id="oldBalance">₹0.00</strong>
-        </div>
-
-        <div class="summary-line">
-          <span>जमा</span>
-          <strong id="paidShow">₹0.00</strong>
-        </div>
-
-        <hr>
-
-        <div class="summary-line grand">
-          <span>नया Balance</span>
-          <strong id="newBalance">₹0.00</strong>
-        </div>
-
-      </div>
-
-
-      <button class="save-btn" onclick="saveBillNow()">
-        💾 BILL SAVE करें
-      </button>
-
-
-      <button
-        id="whatsappButton"
-        class="whatsapp-btn hidden"
-        onclick="sendSavedWhatsApp()"
-      >
-        💬 WhatsApp पर Bill भेजें
-      </button>
-
-
-      <button
-        id="smsButton"
-        class="sms-btn hidden"
-        onclick="sendSavedSMS()"
-      >
-        📩 SMS पर Bill भेजें
-      </button>
-
-    </div>
-
-  </main>
-
-
-  <!-- ACCOUNT SCREEN -->
-  <main id="accountScreen" class="screen">
-
-    <div class="topbar">
-      <button class="back" onclick="goHome()">‹</button>
-
-      <div class="screen-title">
-        👤 UDHARI / JAMA
-      </div>
-    </div>
-
-
-    <div class="form-card">
-
-      <h3>ग्राहक चुनें</h3>
-
-      <input
-        id="accountSearch"
-        placeholder="नाम या मोबाइल से खोजें"
-        oninput="searchAccountCustomer()"
-      >
-
-      <div id="accountCustomers"></div>
-
-    </div>
-
-
-    <div id="accountDetails" class="form-card hidden">
-
-      <h3 id="selectedCustomerName"></h3>
-
-      <p>
-        मोबाइल:
-        <span id="selectedCustomerMobile"></span>
-      </p>
-
-
-      <div class="summary">
-
-        <div class="summary-line grand">
-
-          <span>Balance</span>
-
-          <strong id="selectedCustomerBalance">
-            ₹0.00
-          </strong>
-
-        </div>
-
-      </div>
-
-
-      <div class="row">
-
-        <button class="save-btn" onclick="addUdhari()">
-          ➕ UDHARI
-        </button>
-
-        <button class="save-btn" onclick="addJama()">
-          💰 JAMA
-        </button>
-
-      </div>
-
-    </div>
-
-  </main>
-
-
-  <!-- SETTINGS SCREEN -->
-  <main id="settingsScreen" class="screen">
-
-    <div class="topbar">
-
-      <button class="back" onclick="goHome()">‹</button>
-
-      <div class="screen-title">
-        ⚙️ Settings
-      </div>
-
-    </div>
-
-
-    <div class="settings-note">
-      यहाँ की गई Settings आगे बनने वाले नए Bill और Messages में इस्तेमाल होंगी।
-      पुराने Bill का हिसाब नहीं बदलेगा।
-    </div>
-
-
-    <!-- SHOP -->
-    <div class="form-card">
-
-      <h3>🏪 दुकान की जानकारी</h3>
-
-
-      <label>Shop Name</label>
-
-      <input
-        id="setShopName"
-        placeholder="MANSURI KIRANA"
-      >
-
-
-      <label>Owner Name</label>
-
-      <input
-        id="setOwnerName"
-        placeholder="AALAM MANSURI"
-      >
-
-
-      <label>Mobile Number</label>
-
-      <input
-        id="setMobile"
-        type="tel"
-        maxlength="10"
-        placeholder="9754083323"
-      >
-
-
-      <label>Address</label>
-
-      <input
-        id="setAddress"
-        placeholder="दुकान का पता"
-      >
-
-    </div>
-
-
-    <!-- BILL -->
-    <div class="form-card">
-
-      <h3>🧾 Bill Settings</h3>
-
-
-      <label>अगला Bill Number</label>
-
-      <input
-        id="setBillNo"
-        placeholder="MK-0001"
-      >
-
-
-      <label>Bill Footer</label>
-
-      <textarea
-        id="setFooter"
-        placeholder="Bill के नीचे दिखने वाला संदेश"
-      ></textarea>
-
-    </div>
-
-
-    <!-- MESSAGES -->
-    <div class="form-card">
-
-      <h3>💬 WhatsApp / SMS</h3>
-
-
-      <label>WhatsApp Bill Message</label>
-
-      <textarea
-        id="setWhatsappMessage"
-        placeholder="WhatsApp Bill message"
-      ></textarea>
-
-
-      <label>SMS Message</label>
-
-      <textarea
-        id="setSmsMessage"
-        placeholder="SMS message"
-      ></textarea>
-
-
-      <label>Udhari Receipt Message</label>
-
-      <textarea
-        id="setUdhariMessage"
-        placeholder="Udhari receipt message"
-      ></textarea>
-
-
-      <label>Jama Receipt Message</label>
-
-      <textarea
-        id="setJamaMessage"
-        placeholder="Jama receipt message"
-      ></textarea>
-
-    </div>
-
-
-    <!-- CUSTOMER MESSAGE -->
-    <div class="form-card">
-
-      <h3>❤️ Customer Message</h3>
-
-
-      <label>Line 1</label>
-
-      <input
-        id="setCustomerLine1"
-        placeholder="आपका भरोसा ही हमारी सबसे बड़ी पूंजी है। ❤️"
-      >
-
-
-      <label>Line 2</label>
-
-      <input
-        id="setCustomerLine2"
-        placeholder="सही सामान, सही हिसाब और बेहतर सेवा—हर बार आपका स्वागत है।"
-      >
-
-    </div>
-
-
-    <button
-      class="save-btn"
-      onclick="saveSettingsNow()"
-    >
-      💾 Settings Save करें
-    </button>
-
-  </main>
-
-
-  <!-- MENU -->
-  <div
-    id="menuOverlay"
-    class="menu-overlay"
-    onclick="closeMenu(event)"
-  >
-
-    <div
-      class="side-menu"
-      onclick="event.stopPropagation()"
-    >
-
-      <div class="menu-header">
-
-        <h2>MANSURI KIRANA</h2>
-
-        <button onclick="toggleMenu()">×</button>
-
-      </div>
-
-
-      <button onclick="showSavedBills()">
-        🧾 Saved Bills
-      </button>
-
-      <button onclick="showStock()">
-        📦 Stock
-      </button>
-
-      <button onclick="showRates()">
-        💰 Rate List
-      </button>
-
-      <button onclick="showSalesReport()">
-        📊 बिक्री Report
-      </button>
-
-      <button onclick="showCustomers()">
-        👥 Customers
-      </button>
-
-      <button onclick="showLedger()">
-        📒 पूरा हिसाब
-      </button>
-
-      <button onclick="showUdhariReport()">
-        📈 Udhari Report
-      </button>
-
-      <button onclick="showJamaReport()">
-        💵 Jama Report
-      </button>
-
-      <button onclick="showStockReport()">
-        📦 Stock Report
-      </button>
-
-      <button onclick="showSettings()">
-        ⚙️ Settings
-      </button>
-
-      <button onclick="backupData()">
-        💾 Backup / Restore
-      </button>
-
-      <button onclick="showLanguage()">
-        🌐 Language
-      </button>
-
-      <button onclick="showAbout()">
-        ℹ️ About
-      </button>
-
-    </div>
-
-  </div>
+  <button onclick="openScreen('saved');toggleMenu()">
+    🧾 Saved Bills
+  </button>
+
+  <button onclick="openScreen('stock');toggleMenu()">
+    📦 Stock
+  </button>
+
+  <button onclick="openScreen('rates');toggleMenu()">
+    💰 Rate List
+  </button>
+
+  <button onclick="openScreen('sales');toggleMenu()">
+    📊 बिक्री Report
+  </button>
+
+  <button onclick="openScreen('customers');toggleMenu()">
+    👥 Customers
+  </button>
+
+  <button onclick="openScreen('ledger');toggleMenu()">
+    📒 पूरा हिसाब
+  </button>
+
+  <button onclick="openScreen('udhariReport');toggleMenu()">
+    🔴 Udhari Report
+  </button>
+
+  <button onclick="openScreen('jamaReport');toggleMenu()">
+    🟢 Jama Report
+  </button>
+
+  <button onclick="openScreen('stockReport');toggleMenu()">
+    📦 Stock Report
+  </button>
+
+  <button onclick="openScreen('settings');toggleMenu()">
+    ⚙️ Settings
+  </button>
+
+  <button onclick="openScreen('backup');toggleMenu()">
+    💾 Backup / Restore
+  </button>
+
+  <button onclick="openScreen('language');toggleMenu()">
+    🌐 Language
+  </button>
+
+  <button onclick="openScreen('about');toggleMenu()">
+    ℹ️ About
+  </button>
 
 </div>
 
 
-<script src="app.js"></script>
+<main>
 
+<!-- HOME -->
+<section id="home" class="screen active">
 
-<script>
+  <div class="hero">
 
-let lastSavedBill = null;
-let selectedAccountCustomer = null;
+    <h1 id="homeShop">
+      MANSURI KIRANA
+    </h1>
 
+    <p id="homeOwner">
+      AALAM MANSURI • 9754083323
+    </p>
 
-/* MONEY */
+    <p id="today"></p>
 
-function money(n) {
-  return "₹" + Number(n || 0).toFixed(2);
-}
+  </div>
 
 
-/* DATE */
+  <div class="customer-lines">
 
-function setDate() {
+    <div>
+      ❤️ आपका भरोसा ही हमारी सबसे बड़ी पूंजी है।
+    </div>
 
-  document.getElementById("todayDate").textContent =
-    new Date().toLocaleDateString("hi-IN", {
-      day:"2-digit",
-      month:"long",
-      year:"numeric"
-    });
+    <div>
+      सही सामान, सही हिसाब और बेहतर सेवा—हर बार आपका स्वागत है।
+    </div>
 
-}
+  </div>
 
 
-/* MENU */
+  <div class="big-grid">
 
-function toggleMenu() {
+    <button
+      class="action bill"
+      onclick="openScreen('bill')">
 
-  document
-    .getElementById("menuOverlay")
-    .classList.toggle("active");
+      🧾
 
-}
+      <span>BILL</span>
 
+      <small>
+        नया बिल बनाएं
+      </small>
 
-function closeMenu(e) {
+    </button>
 
-  if (e.target.id === "menuOverlay") {
-    toggleMenu();
-  }
 
-}
+    <button
+      class="action account"
+      onclick="openScreen('account')">
 
+      👤
 
-/* SCREENS */
+      <span>UDHARI / JAMA</span>
 
-function hideScreens() {
+      <small>
+        ग्राहक का हिसाब
+      </small>
 
-  document
-    .querySelectorAll(".screen")
-    .forEach(x => x.classList.remove("active"));
+    </button>
 
-}
+  </div>
 
+</section>
 
-function goHome() {
 
-  hideScreens();
 
-  document
-    .getElementById("homeScreen")
-    .classList.add("active");
+<!-- NEW BILL -->
+<section id="bill" class="screen">
 
-}
+  <div class="screen-head">
 
+    <button onclick="goHome()">
+      ←
+    </button>
 
-function showBill() {
+    <h2>
+      नया बिल
+    </h2>
 
-  hideScreens();
+  </div>
 
-  document
-    .getElementById("billScreen")
-    .classList.add("active");
 
+  <div class="card">
 
-  if (!document.querySelector(".product-row")) {
-    addProductRow();
-  }
-
-  updateOldBalance();
-
-}
-
-
-/* ACCOUNT */
-
-function showAccount() {
-
-  hideScreens();
-
-  document
-    .getElementById("accountScreen")
-    .classList.add("active");
-
-  searchAccountCustomer();
-
-}
-
-
-/* CONTACT */
-
-function chooseContact() {
-
-  if (
-    "contacts" in navigator &&
-    navigator.contacts.select
-  ) {
-
-    navigator.contacts.select(
-      ["name","tel"],
-      {multiple:false}
-    )
-
-    .then(contacts => {
-
-      if (!contacts.length) return;
-
-      const c = contacts[0];
-
-      document.getElementById("customerName").value =
-        c.name && c.name.length
-        ? c.name[0]
-        : "";
-
-      document.getElementById("customerMobile").value =
-        c.tel && c.tel.length
-        ? c.tel[0].replace(/\D/g,"").slice(-10)
-        : "";
-
-      updateOldBalance();
-
-    })
-
-    .catch(() => {
-
-      alert("Contact नहीं चुना गया।");
-
-    });
-
-  } else {
-
-    alert(
-      "आपके फोन/Chrome में Contact Picker उपलब्ध नहीं है।\n\n" +
-      "कृपया ग्राहक का नाम और मोबाइल नंबर manually डालें।"
-    );
-
-  }
-
-}
-
-
-/* PRODUCTS */
-
-function addProductRow() {
-
-  const box =
-    document.getElementById("productsContainer");
-
-  const row =
-    document.createElement("div");
-
-  row.className = "product-row";
-
-
-  row.innerHTML = `
-
-    <label>सामान</label>
+    <label>
+      ग्राहक का नाम
+    </label>
 
     <input
-      class="p-name"
-      placeholder="जैसे: गेहूं"
+      id="billCustomer"
+      placeholder="जैसे: राहुल"
+      oninput="refreshCustomerSuggestions()"
     >
 
 
+    <label>
+      मोबाइल नंबर
+    </label>
+
     <div class="row">
 
-      <div>
+      <input
+        id="billMobile"
+        inputmode="tel"
+        placeholder="10 अंकों का नंबर"
+      >
 
-        <label>मात्रा</label>
+      <button
+        class="small-btn"
+        onclick="chooseContact()">
 
-        <input
-          class="p-qty"
-          type="number"
-          min="0"
-          value="1"
-          oninput="calculateBill()"
-        >
+        📱
 
-      </div>
-
-
-      <div>
-
-        <label>Rate</label>
-
-        <input
-          class="p-rate"
-          type="number"
-          min="0"
-          placeholder="₹ Rate"
-          oninput="calculateBill()"
-        >
-
-      </div>
+      </button>
 
     </div>
 
 
-    <label>Unit</label>
+    <div
+      id="customerSuggestions"
+      class="suggestions">
+    </div>
 
-    <select class="p-unit">
-
-      <option>Kg</option>
-      <option>Gram</option>
-      <option>Litre</option>
-      <option>Piece</option>
-      <option>Packet</option>
-      <option>Dozen</option>
-
-    </select>
+  </div>
 
 
-    <div class="summary-line">
 
-      <span>Amount</span>
+  <div class="card">
 
-      <strong class="p-amount">
-        ₹0.00
-      </strong>
+    <div class="section-title">
+
+      <b>
+        सामान
+      </b>
+
+      <button
+        class="small-btn"
+        onclick="addProductRow()">
+
+        ＋ सामान
+
+      </button>
+
+    </div>
+
+
+    <div id="billItems"></div>
+
+
+    <button
+      class="outline full"
+      onclick="addProductRow()">
+
+      ＋ दूसरा सामान जोड़ें
+
+    </button>
+
+  </div>
+
+
+
+  <div class="card">
+
+    <label>
+      आज जमा (₹)
+    </label>
+
+    <input
+      id="billPaid"
+      type="number"
+      min="0"
+      step="0.01"
+      value="0"
+      oninput="calculateBill()"
+    >
+
+
+    <div class="summary">
+
+      <div>
+        कुल बिल
+        <b id="billTotal">
+          ₹0
+        </b>
+      </div>
+
+      <div>
+        पुराना बाकी
+        <b id="billOld">
+          ₹0
+        </b>
+      </div>
+
+      <div>
+        नया बाकी
+        <b id="billNew">
+          ₹0
+        </b>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="button-row">
+
+    <button
+      class="primary"
+      onclick="saveBill()">
+
+      💾 बिल सेव करें
+
+    </button>
+
+  </div>
+
+
+  <div class="button-row">
+
+    <button
+      id="billWA"
+      class="whatsapp"
+      disabled>
+
+      WhatsApp
+
+    </button>
+
+
+    <button
+      id="billSMS"
+      class="outline"
+      disabled>
+
+      SMS
+
+    </button>
+
+  </div>
+
+</section>
+
+
+
+<!-- UDHARI / JAMA -->
+<section id="account" class="screen">
+
+  <div class="screen-head">
+
+    <button onclick="goHome()">
+      ←
+    </button>
+
+    <h2>
+      उधारी / जमा
+    </h2>
+
+  </div>
+
+
+  <div class="card">
+
+    <input
+      id="accountSearch"
+      placeholder="ग्राहक का नाम या मोबाइल"
+      oninput="renderAccountCustomers()"
+    >
+
+    <div id="accountCustomers"></div>
+
+  </div>
+
+
+  <div id="accountDetail"></div>
+
+</section>
+
+
+
+<!-- SAVED BILLS -->
+<section id="saved" class="screen">
+
+  <div class="screen-head">
+
+    <button onclick="goHome()">
+      ←
+    </button>
+
+    <h2>
+      Saved Bills
+    </h2>
+
+  </div>
+
+  <div id="savedList"></div>
+
+</section>
+
+
+
+<!-- STOCK -->
+<section id="stock" class="screen">
+
+  <div class="screen-head">
+
+    <button onclick="goHome()">
+      ←
+    </button>
+
+    <h2>
+      Stock
+    </h2>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="row">
+
+      <input
+        id="productName"
+        placeholder="सामान का नाम"
+      >
+
+      <input
+        id="productRate"
+        type="number"
+        placeholder="रेट"
+      >
+
+    </div>
+
+
+    <div class="row">
+
+      <select id="productUnit">
+
+        <option>
+          Kg
+        </option>
+
+        <option>
+          Gram
+        </option>
+
+        <option>
+          Litre
+        </option>
+
+        <option>
+          Piece
+        </option>
+
+        <option>
+          Packet
+        </option>
+
+        <option>
+          Dozen
+        </option>
+
+      </select>
+
+
+      <input
+        id="productStock"
+        type="number"
+        placeholder="स्टॉक"
+      >
 
     </div>
 
 
     <button
-      class="remove"
-      onclick="this.parentElement.remove();calculateBill()"
-    >
-      हटाएँ
+      class="primary full"
+      onclick="saveProduct()">
+
+      💾 सामान सेव करें
+
     </button>
 
-  `;
+  </div>
 
 
-  box.appendChild(row);
+  <div id="stockList"></div>
 
-  calculateBill();
+</section>
 
-}
 
 
-function getRows() {
+<!-- RATE LIST -->
+<section id="rates" class="screen">
 
-  return [
-    ...document.querySelectorAll(".product-row")
-  ];
+  <div class="screen-head">
 
-}
+    <button onclick="goHome()">
+      ←
+    </button>
 
+    <h2>
+      Rate List
+    </h2>
 
-/* CALCULATE BILL */
+  </div>
 
-function calculateBill() {
 
-  let total = 0;
+  <div id="rateList"></div>
 
+</section>
 
-  getRows().forEach(row => {
 
-    const qty =
-      Number(
-        row.querySelector(".p-qty").value
-      ) || 0;
 
-    const rate =
-      Number(
-        row.querySelector(".p-rate").value
-      ) || 0;
+<!-- SALES REPORT -->
+<section id="sales" class="screen">
 
+  <div class="screen-head">
 
-    const amount = qty * rate;
+    <button onclick="goHome()">
+      ←
+    </button>
 
+    <h2>
+      बिक्री Report
+    </h2>
 
-    row.querySelector(".p-amount")
-      .textContent = money(amount);
+  </div>
 
 
-    total += amount;
+  <div id="salesReport"></div>
 
-  });
+</section>
 
 
-  const paid =
-    Number(
-      document.getElementById("paidAmount").value
-    ) || 0;
 
+<!-- CUSTOMERS -->
+<section id="customers" class="screen">
 
-  const name =
-    document.getElementById("customerName")
-      .value
-      .trim();
+  <div class="screen-head">
 
+    <button onclick="goHome()">
+      ←
+    </button>
 
-  let old = 0;
+    <h2>
+      Customers
+    </h2>
 
+  </div>
 
-  if (
-    name &&
-    window.MansuriKirana
-  ) {
 
-    const customer =
-      window.MansuriKirana
-        .data()
-        .customers
-        .find(
-          c =>
-            c.name.toLowerCase() ===
-            name.toLowerCase()
-        );
+  <div id="customersList"></div>
 
+</section>
 
-    if (customer) {
-      old = Number(customer.balance) || 0;
-    }
 
-  }
 
+<!-- FULL LEDGER -->
+<section id="ledger" class="screen">
 
-  document.getElementById("billTotal")
-    .textContent = money(total);
+  <div class="screen-head">
 
+    <button onclick="goHome()">
+      ←
+    </button>
 
-  document.getElementById("oldBalance")
-    .textContent = money(old);
+    <h2>
+      पूरा हिसाब
+    </h2>
 
+  </div>
 
-  document.getElementById("paidShow")
-    .textContent = money(paid);
 
+  <div id="ledgerList"></div>
 
-  document.getElementById("newBalance")
-    .textContent =
-      money(old + total - paid);
+</section>
 
-}
 
 
-function updateOldBalance() {
+<!-- UDHARI REPORT -->
+<section id="udhariReport" class="screen">
 
-  calculateBill();
+  <div class="screen-head">
 
-}
+    <button onclick="goHome()">
+      ←
+    </button>
 
+    <h2>
+      Udhari Report
+    </h2>
 
-document
-  .getElementById("customerName")
-  .addEventListener(
-    "input",
-    calculateBill
-  );
+  </div>
 
 
-/* SAVE BILL */
+  <div id="udhariList"></div>
 
-function saveBillNow() {
+</section>
 
-  const name =
-    document.getElementById("customerName")
-      .value
-      .trim();
 
 
-  const mobile =
-    document.getElementById("customerMobile")
-      .value
-      .trim();
+<!-- JAMA REPORT -->
+<section id="jamaReport" class="screen">
 
+  <div class="screen-head">
 
-  if (!name) {
+    <button onclick="goHome()">
+      ←
+    </button>
 
-    alert("कृपया ग्राहक का नाम डालें।");
+    <h2>
+      Jama Report
+    </h2>
 
-    return;
+  </div>
 
-  }
 
+  <div id="jamaList"></div>
 
-  const items = [];
+</section>
 
 
-  getRows().forEach(row => {
 
-    const itemName =
-      row.querySelector(".p-name")
-        .value
-        .trim();
+<!-- STOCK REPORT -->
+<section id="stockReport" class="screen">
 
+  <div class="screen-head">
 
-    const qty =
-      Number(
-        row.querySelector(".p-qty").value
-      ) || 0;
+    <button onclick="goHome()">
+      ←
+    </button>
 
+    <h2>
+      Stock Report
+    </h2>
 
-    const rate =
-      Number(
-        row.querySelector(".p-rate").value
-      ) || 0;
+  </div>
 
 
-    const unit =
-      row.querySelector(".p-unit").value;
+  <div id="stockReportList"></div>
 
+</section>
 
-    if (itemName && qty > 0) {
 
-      items.push({
-        name:itemName,
-        qty,
-        rate,
-        unit
-      });
 
-    }
+<!-- SETTINGS -->
+<section id="settings" class="screen">
 
-  });
+  <div class="screen-head">
 
+    <button onclick="goHome()">
+      ←
+    </button>
 
-  if (!items.length) {
+    <h2>
+      Settings
+    </h2>
 
-    alert("कम से कम एक सामान डालें।");
+  </div>
 
-    return;
 
-  }
+  <div class="card">
 
+    <label>
+      Shop Name
+    </label>
 
-  const data =
-    window.MansuriKirana.data();
+    <input id="sShop">
 
 
-  let customer =
-    data.customers.find(
-      c =>
-        c.mobile === mobile &&
-        mobile !== ""
-    );
+    <label>
+      Owner Name
+    </label>
 
+    <input id="sOwner">
 
-  if (!customer) {
 
-    customer =
-      data.customers.find(
-        c =>
-          c.name.toLowerCase() ===
-          name.toLowerCase()
-      );
+    <label>
+      Mobile
+    </label>
 
-  }
+    <input
+      id="sMobile"
+      inputmode="tel"
+    >
 
 
-  if (!customer) {
+    <label>
+      Address
+    </label>
 
-    customer =
-      window.MansuriKirana
-        .addCustomer(
-          name,
-          mobile
-        );
+    <input id="sAddress">
 
-  } else if (
-    mobile &&
-    !customer.mobile
-  ) {
 
-    customer.mobile = mobile;
+    <label>
+      अगला Bill Number
+    </label>
 
-    window.MansuriKirana.saveData();
+    <input
+      id="sBillNo"
+      type="number"
+    >
 
-  }
 
+    <label>
+      Bill Footer
+    </label>
 
-  const paid =
-    Number(
-      document.getElementById("paidAmount").value
-    ) || 0;
+    <textarea id="sFooter"></textarea>
 
 
-  lastSavedBill =
-    window.MansuriKirana.createBill(
-      customer.id,
-      items,
-      paid
-    );
+    <label>
+      WhatsApp Bill Message
+    </label>
 
+    <textarea id="sWA"></textarea>
 
-  if (!lastSavedBill) return;
 
+    <label>
+      SMS Message
+    </label>
 
-  alert(
-    "✅ Bill सफलतापूर्वक Save हो गया!\n\n" +
-    "Bill No: " +
-    lastSavedBill.billNo +
-    "\n" +
-    "Total: " +
-    money(lastSavedBill.total) +
-    "\n" +
-    "New Balance: " +
-    money(lastSavedBill.newBalance)
-  );
+    <textarea id="sSMS"></textarea>
 
 
-  document
-    .getElementById("whatsappButton")
-    .classList
-    .remove("hidden");
+    <label>
+      Udhari Receipt Message
+    </label>
 
+    <textarea id="sUdhari"></textarea>
 
-  document
-    .getElementById("smsButton")
-    .classList
-    .remove("hidden");
 
-}
+    <label>
+      Jama Receipt Message
+    </label>
 
+    <textarea id="sJama"></textarea>
 
-/* WHATSAPP */
 
-function sendSavedWhatsApp() {
+    <label>
+      Customer Line 1
+    </label>
 
-  if (!lastSavedBill) return;
+    <textarea id="sLine1"></textarea>
 
 
-  if (!lastSavedBill.customerMobile) {
+    <label>
+      Customer Line 2
+    </label>
 
-    alert(
-      "ग्राहक का मोबाइल नंबर उपलब्ध नहीं है।"
-    );
+    <textarea id="sLine2"></textarea>
 
-    return;
 
-  }
+    <button
+      class="primary full"
+      onclick="saveSettings()">
 
+      💾 Settings सेव करें
 
-  window.MansuriKirana
-    .shareOnWhatsApp(
-      lastSavedBill
-    );
+    </button>
 
-}
+  </div>
 
+</section>
 
-/* SMS */
 
-function sendSavedSMS() {
 
-  if (!lastSavedBill) return;
+<!-- BACKUP -->
+<section id="backup" class="screen">
 
+  <div class="screen-head">
 
-  if (!lastSavedBill.customerMobile) {
+    <button onclick="goHome()">
+      ←
+    </button>
 
-    alert(
-      "ग्राहक का मोबाइल नंबर उपलब्ध नहीं है।"
-    );
+    <h2>
+      Backup / Restore
+    </h2>
 
-    return;
+  </div>
 
-  }
 
+  <div class="card">
 
-  window.MansuriKirana
-    .shareOnSMS(
-      lastSavedBill
-    );
+    <button
+      class="primary full"
+      onclick="exportBackup()">
 
-}
+      ⬇️ Backup डाउनलोड करें
 
+    </button>
 
-/* ACCOUNT SEARCH */
 
-function searchAccountCustomer() {
+    <label class="file-label">
 
-  const box =
-    document.getElementById(
-      "accountCustomers"
-    );
+      ⬆️ Backup Restore करें
 
+      <input
+        type="file"
+        accept=".json,application/json"
+        onchange="importBackup(event)"
+      >
 
-  const q =
-    document.getElementById(
-      "accountSearch"
-    )
-    .value
-    .trim()
-    .toLowerCase();
+    </label>
 
 
-  const customers =
-    window.MansuriKirana
-      .data()
-      .customers
-      .filter(c =>
-        !q ||
-        c.name
-          .toLowerCase()
-          .includes(q) ||
-        String(c.mobile)
-          .includes(q)
-      );
+    <button
+      class="danger full"
+      onclick="clearAllData()">
 
+      ⚠️ पूरा डेटा Delete
 
-  if (!customers.length) {
+    </button>
 
-    box.innerHTML =
-      `<div class="empty">
-        अभी कोई ग्राहक नहीं है।
-      </div>`;
+  </div>
 
-    return;
+</section>
 
-  }
 
 
-  box.innerHTML =
-    customers
-      .map(c => `
+<!-- LANGUAGE -->
+<section id="language" class="screen">
 
-        <div
-          class="saved-customer"
-          onclick="selectAccountCustomer('${c.id}')"
-        >
+  <div class="screen-head">
 
-          <strong>
-            ${escapeHtml(c.name)}
-          </strong>
+    <button onclick="goHome()">
+      ←
+    </button>
 
-          <br>
+    <h2>
+      Language
+    </h2>
 
-          📱
-          ${escapeHtml(
-            c.mobile || "मोबाइल नहीं"
-          )}
+  </div>
 
-          <br>
 
-          💰 Balance:
-          ${money(c.balance)}
+  <div class="card">
 
-        </div>
+    <button
+      class="outline full"
+      onclick="setLanguage('hi')">
 
-      `)
-      .join("");
+      🇮🇳 हिंदी
 
-}
+    </button>
 
 
-/* SELECT CUSTOMER */
+    <button
+      class="outline full"
+      onclick="setLanguage('en')">
 
-function selectAccountCustomer(id) {
+      🇬🇧 English
 
-  selectedAccountCustomer =
-    window.MansuriKirana
-      .findCustomer(id);
+    </button>
 
+  </div>
 
-  if (!selectedAccountCustomer) return;
+</section>
 
 
-  document
-    .getElementById("accountDetails")
-    .classList
-    .remove("hidden");
 
+<!-- ABOUT -->
+<section id="about" class="screen">
 
-  document
-    .getElementById("selectedCustomerName")
-    .textContent =
-      selectedAccountCustomer.name;
+  <div class="screen-head">
 
+    <button onclick="goHome()">
+      ←
+    </button>
 
-  document
-    .getElementById("selectedCustomerMobile")
-    .textContent =
-      selectedAccountCustomer.mobile || "-";
+    <h2>
+      About
+    </h2>
 
+  </div>
 
-  document
-    .getElementById("selectedCustomerBalance")
-    .textContent =
-      money(
-        selectedAccountCustomer.balance
-      );
 
-}
+  <div class="card about">
 
+    <h2>
+      MANSURI KIRANA
+    </h2>
 
-/* UDHARI */
+    <p>
+      AALAM MANSURI
+    </p>
 
-function addUdhari() {
+    <p>
+      Kesur, Dhar, Madhya Pradesh
+    </p>
 
-  if (!selectedAccountCustomer) return;
+    <p>
+      Mo. 9754083323
+    </p>
 
+    <hr>
 
-  const amount =
-    prompt("UDHARI राशि डालें:");
+    <p>
+      किराना दुकान के बिल, ग्राहक हिसाब,
+      उधारी/जमा, स्टॉक और रिपोर्ट के लिए
+      सरल ऐप।
+    </p>
 
+  </div>
 
-  if (amount === null) return;
+</section>
 
+</main>
 
-  const result =
-    window.MansuriKirana
-      .addTransaction(
-        selectedAccountCustomer.id,
-        "udhari",
-        Number(amount),
-        "Manual Udhari"
-      );
 
+<!-- TOAST MESSAGE -->
+<div id="toast"></div>
 
-  if (result) {
 
-    alert("✅ Udhari दर्ज हो गई।");
-
-    selectAccountCustomer(
-      selectedAccountCustomer.id
-    );
-
-    searchAccountCustomer();
-
-  }
-
-}
-
-
-/* JAMA */
-
-function addJama() {
-
-  if (!selectedAccountCustomer) return;
-
-
-  const amount =
-    prompt("JAMA राशि डालें:");
-
-
-  if (amount === null) return;
-
-
-  const result =
-    window.MansuriKirana
-      .addTransaction(
-        selectedAccountCustomer.id,
-        "jama",
-        Number(amount),
-        "Manual Jama"
-      );
-
-
-  if (result) {
-
-    alert("✅ Jama दर्ज हो गया।");
-
-    selectAccountCustomer(
-      selectedAccountCustomer.id
-    );
-
-    searchAccountCustomer();
-
-  }
-
-}
-
-
-/* ESCAPE HTML */
-
-function escapeHtml(text) {
-
-  return String(text)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;");
-
-}
-
-
-/* MENU FUNCTIONS */
-
-function closeForMenu() {
-
-  document
-    .getElementById("menuOverlay")
-    .classList
-    .remove("active");
-
-}
-
-
-function menuMessage(title) {
-
-  closeForMenu();
-
-  alert(
-    title +
-    " section अगली screen में जोड़ा जाएगा।"
-  );
-
-}
-
-
-function showSavedBills() {
-  menuMessage("Saved Bills");
-}
-
-
-function showStock() {
-  menuMessage("Stock");
-}
-
-
-function showRates() {
-  menuMessage("Rate List");
-}
-
-
-function showSalesReport() {
-  menuMessage("बिक्री Report");
-}
-
-
-function showCustomers() {
-
-  showAccount();
-
-  closeForMenu();
-
-}
-
-
-function showLedger() {
-  menuMessage("पूरा हिसाब");
-}
-
-
-function showUdhariReport() {
-  menuMessage("Udhari Report");
-}
-
-
-function showJamaReport() {
-  menuMessage("Jama Report");
-}
-
-
-function showStockReport() {
-  menuMessage("Stock Report");
-}
-
-
-/* SETTINGS */
-
-function showSettings() {
-
-  closeForMenu();
-
-  hideScreens();
-
-  document
-    .getElementById("settingsScreen")
-    .classList
-    .add("active");
-
-
-  const data =
-    window.MansuriKirana.data();
-
-
-  const s =
-    data.settings || {};
-
-
-  document.getElementById("setShopName").value =
-    s.shopName || "MANSURI KIRANA";
-
-
-  document.getElementById("setOwnerName").value =
-    s.ownerName || "AALAM MANSURI";
-
-
-  document.getElementById("setMobile").value =
-    s.mobile || "9754083323";
-
-
-  document.getElementById("setAddress").value =
-    s.address || "";
-
-
-  document.getElementById("setBillNo").value =
-    s.billNo || "MK-0001";
-
-
-  document.getElementById("setFooter").value =
-    s.footer ||
-    "आपका भरोसा ही हमारी सबसे बड़ी पूंजी है। ❤️";
-
-
-  document.getElementById("setWhatsappMessage").value =
-    s.whatsappBillMessage || "";
-
-
-  document.getElementById("setSmsMessage").value =
-    s.smsMessage || "";
-
-
-  document.getElementById("setUdhariMessage").value =
-    s.udhariReceiptMessage || "";
-
-
-  document.getElementById("setJamaMessage").value =
-    s.jamaReceiptMessage || "";
-
-
-  document.getElementById("setCustomerLine1").value =
-    s.customerLine1 ||
-    "आपका भरोसा ही हमारी सबसे बड़ी पूंजी है। ❤️";
-
-
-  document.getElementById("setCustomerLine2").value =
-    s.customerLine2 ||
-    "सही सामान, सही हिसाब और बेहतर सेवा—हर बार आपका स्वागत है।";
-
-}
-
-
-/* SAVE SETTINGS */
-
-function saveSettingsNow() {
-
-  const data =
-    window.MansuriKirana.data();
-
-
-  if (!data.settings) {
-    data.settings = {};
-  }
-
-
-  data.settings.shopName =
-    document
-      .getElementById("setShopName")
-      .value
-      .trim();
-
-
-  data.settings.ownerName =
-    document
-      .getElementById("setOwnerName")
-      .value
-      .trim();
-
-
-  data.settings.mobile =
-    document
-      .getElementById("setMobile")
-      .value
-      .trim();
-
-
-  data.settings.address =
-    document
-      .getElementById("setAddress")
-      .value
-      .trim();
-
-
-  data.settings.billNo =
-    document
-      .getElementById("setBillNo")
-      .value
-      .trim();
-
-
-  data.settings.footer =
-    document
-      .getElementById("setFooter")
-      .value
-      .trim();
-
-
-  data.settings.whatsappBillMessage =
-    document
-      .getElementById("setWhatsappMessage")
-      .value
-      .trim();
-
-
-  data.settings.smsMessage =
-    document
-      .getElementById("setSmsMessage")
-      .value
-      .trim();
-
-
-  data.settings.udhariReceiptMessage =
-    document
-      .getElementById("setUdhariMessage")
-      .value
-      .trim();
-
-
-  data.settings.jamaReceiptMessage =
-    document
-      .getElementById("setJamaMessage")
-      .value
-      .trim();
-
-
-  data.settings.customerLine1 =
-    document
-      .getElementById("setCustomerLine1")
-      .value
-      .trim();
-
-
-  data.settings.customerLine2 =
-    document
-      .getElementById("setCustomerLine2")
-      .value
-      .trim();
-
-
-  window.MansuriKirana.saveData();
-
-
-  applySettings();
-
-
-  alert(
-    "✅ Settings सफलतापूर्वक Save हो गईं।"
-  );
-
-}
-
-
-/* APPLY SETTINGS */
-
-function applySettings() {
-
-  if (!window.MansuriKirana) return;
-
-
-  const data =
-    window.MansuriKirana.data();
-
-
-  const s =
-    data.settings || {};
-
-
-  const shop =
-    s.shopName || "MANSURI KIRANA";
-
-
-  const owner =
-    s.ownerName || "AALAM MANSURI";
-
-
-  const mobile =
-    s.mobile || "9754083323";
-
-
-  document
-    .getElementById("headerShopName")
-    .textContent = shop;
-
-
-  document
-    .getElementById("headerOwner")
-    .textContent =
-      owner + " • " + mobile;
-
-
-  const line1 =
-    document.getElementById("homeLine1");
-
-
-  const line2 =
-    document.getElementById("homeLine2");
-
-
-  if (line1) {
-
-    line1.textContent =
-      "“" +
-      (
-        s.customerLine1 ||
-        "आपका भरोसा ही हमारी सबसे बड़ी पूंजी है। ❤️"
-      ) +
-      "”";
-
-  }
-
-
-  if (line2) {
-
-    line2.textContent =
-      "“" +
-      (
-        s.customerLine2 ||
-        "सही सामान, सही हिसाब और बेहतर सेवा—हर बार आपका स्वागत है।"
-      ) +
-      "”";
-
-  }
-
-}
-
-
-/* LANGUAGE */
-
-function showLanguage() {
-
-  closeForMenu();
-
-  alert(
-    "🌐 Language\n\n" +
-    "Hindi / English language option अगली update में जोड़ा जाएगा।"
-  );
-
-}
-
-
-/* ABOUT */
-
-function showAbout() {
-
-  closeForMenu();
-
-  const data =
-    window.MansuriKirana.data();
-
-
-  const s =
-    data.settings || {};
-
-
-  alert(
-    (s.shopName || "MANSURI KIRANA") +
-    "\n" +
-    (s.ownerName || "AALAM MANSURI") +
-    "\n" +
-    (s.mobile || "9754083323")
-  );
-
-}
-
-
-/* BACKUP */
-
-function backupData() {
-
-  closeForMenu();
-
-  window.MansuriKirana.exportBackup();
-
-}
-
-
-/* START */
-
-setDate();
-
-applySettings();
-
-</script>
+<!-- JAVASCRIPT -->
+<script src="app.js"></script>
 
 </body>
 </html>

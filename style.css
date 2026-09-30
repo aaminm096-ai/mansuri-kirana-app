@@ -1,176 +1,940 @@
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
+  margin: 0;
+  padding: 0;
+  background: #f3f4f6;
   color: #111827;
+  font-family: Arial, "Noto Sans Devanagari", sans-serif;
+  -webkit-tap-highlight-color: transparent;
 }
 
-button,
-input,
-select {
-  font: inherit;
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar {
+  height: 64px;
+  background: #111827;
+  color: white;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 8px 14px;
+
+  position: sticky;
+  top: 0;
+
+  z-index: 20;
+
+  box-shadow: 0 2px 10px #0003;
 }
 
-button {
+.topbar b {
+  display: block;
+  font-size: 17px;
+  letter-spacing: .3px;
+}
+
+.topbar small {
+  display: block;
+  color: #d1d5db;
+  margin-top: 3px;
+  font-size: 11px;
+}
+
+
+/* =========================
+   ICON BUTTON
+========================= */
+
+.icon-btn {
+  border: 0;
+  background: transparent;
+  color: inherit;
+
+  font-size: 25px;
+
+  padding: 6px;
+
   cursor: pointer;
 }
 
-.app {
-  width: 100%;
-  max-width: 520px;
-  min-height: 100vh;
-  margin: auto;
-  background: #ffffff;
+
+/* =========================
+   SIDE MENU
+========================= */
+
+.drawer {
+  position: fixed;
+
+  left: 0;
+  top: 0;
+  bottom: 0;
+
+  width: min(330px, 88vw);
+
+  background: white;
+
+  z-index: 50;
+
+  box-shadow: 5px 0 25px #0003;
+
+  overflow-y: auto;
 }
 
-header {
+.drawer.hidden {
+  display: none;
+}
+
+.drawer-head {
+  height: 64px;
+
   background: #111827;
-  color: #ffffff;
-  padding: 22px 20px;
-  text-align: center;
-  position: relative;
+  color: white;
+
+  padding: 12px 16px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
 }
 
-.shop-name {
-  font-size: 25px;
-  font-weight: 800;
-  letter-spacing: 1px;
+.drawer-head b {
+  font-size: 18px;
 }
 
-.owner {
-  margin-top: 7px;
-  font-size: 14px;
-  line-height: 1.5;
-}
+.drawer > button:not(.icon-btn) {
+  display: block;
 
-.menu-btn {
-  position: absolute;
-  right: 16px;
-  top: 20px;
-  width: 42px;
-  height: 42px;
+  width: 100%;
+
   border: 0;
-  border-radius: 12px;
-  background: rgba(255,255,255,.12);
-  color: #ffffff;
-  font-size: 25px;
+
+  background: white;
+
+  color: #111827;
+
+  text-align: left;
+
+  padding: 16px;
+
+  font-size: 15px;
+
+  border-bottom: 1px solid #eeeeee;
+
+  cursor: pointer;
+
+  transition: background .15s;
 }
 
-.date {
-  padding: 12px 18px;
-  border-bottom: 1px solid #e5e7eb;
-  color: #6b7280;
+.drawer > button:not(.icon-btn):active {
+  background: #f3f4f6;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+main {
+  min-height: calc(100vh - 64px);
+}
+
+
+/* =========================
+   SCREENS
+========================= */
+
+.screen {
+  display: none;
+
+  width: 100%;
+
+  max-width: 720px;
+
+  margin: auto;
+
+  padding: 14px;
+}
+
+.screen.active {
+  display: block;
+}
+
+
+/* =========================
+   HOME HERO
+========================= */
+
+.hero {
+  background: white;
+
+  border-radius: 18px;
+
+  padding: 24px;
+
+  text-align: center;
+
+  margin: 10px 0 12px;
+
+  box-shadow: 0 3px 12px #0000000b;
+}
+
+.hero h1 {
+  margin: 0;
+
+  font-size: 25px;
+
+  font-weight: 800;
+
+  letter-spacing: .5px;
+}
+
+.hero p {
+  margin: 7px 0;
+
+  color: #4b5563;
+
+  font-size: 14px;
+}
+
+
+/* =========================
+   CUSTOMER MESSAGE
+========================= */
+
+.customer-lines {
+  background: white;
+
+  border-radius: 14px;
+
+  padding: 15px;
+
+  margin: 12px 0;
+
+  font-size: 13px;
+
+  line-height: 1.8;
+
+  box-shadow: 0 2px 8px #0000000a;
+}
+
+
+/* =========================
+   HOME BUTTONS
+========================= */
+
+.big-grid {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 12px;
+
+  margin-top: 14px;
+}
+
+.action {
+  min-height: 155px;
+
+  border: 0;
+
+  border-radius: 20px;
+
+  color: white;
+
+  font-size: 34px;
+
+  box-shadow: 0 7px 20px #0002;
+
+  cursor: pointer;
+
+  transition:
+    transform .12s,
+    box-shadow .12s;
+}
+
+.action:active {
+  transform: scale(.97);
+
+  box-shadow: 0 3px 10px #0002;
+}
+
+.action span {
+  display: block;
+
+  font-size: 17px;
+
+  font-weight: 800;
+
+  margin-top: 10px;
+}
+
+.action small {
+  display: block;
+
+  font-size: 12px;
+
+  margin-top: 6px;
+
+  opacity: .9;
+}
+
+.bill {
+  background: #2563eb;
+}
+
+.account {
+  background: #059669;
+}
+
+
+/* =========================
+   SCREEN HEADER
+========================= */
+
+.screen-head {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin: 5px 0 14px;
+}
+
+.screen-head button {
+  border: 0;
+
+  background: white;
+
+  color: #111827;
+
+  border-radius: 10px;
+
+  padding: 9px 13px;
+
+  font-size: 20px;
+
+  cursor: pointer;
+
+  box-shadow: 0 2px 6px #0000000b;
+}
+
+.screen-head h2 {
+  margin: 0;
+
+  font-size: 20px;
+
+  font-weight: 800;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.card {
+  background: white;
+
+  border-radius: 16px;
+
+  padding: 15px;
+
+  margin: 12px 0;
+
+  box-shadow: 0 2px 8px #0000000b;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+label {
+  display: block;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  margin: 11px 0 6px;
+
+  color: #374151;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+
+  padding: 12px;
+
+  border: 1px solid #d1d5db;
+
+  border-radius: 10px;
+
+  font-size: 15px;
+
+  background: white;
+
+  color: #111827;
+
+  outline: none;
+
+  font-family: inherit;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #2563eb;
+
+  box-shadow: 0 0 0 3px #2563eb18;
+}
+
+textarea {
+  min-height: 70px;
+
+  resize: vertical;
+}
+
+
+/* =========================
+   ROW
+========================= */
+
+.row {
+  display: flex;
+
+  gap: 8px;
+
+  align-items: center;
+}
+
+.row > * {
+  flex: 1;
+}
+
+.row > .small-btn {
+  flex: 0 0 auto;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.small-btn,
+.outline,
+.primary,
+.danger,
+.whatsapp {
+  border-radius: 10px;
+
+  padding: 11px 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  font-size: 14px;
+}
+
+.small-btn {
+  border: 0;
+
+  background: #eef2ff;
+
+  color: #1e40af;
+}
+
+.outline {
+  background: white;
+
+  border: 1px solid #9ca3af;
+
+  color: #111827;
+}
+
+.primary {
+  background: #111827;
+
+  color: white;
+
+  border: 0;
+}
+
+.danger {
+  background: #dc2626;
+
+  color: white;
+
+  border: 0;
+}
+
+.whatsapp {
+  background: #16a34a;
+
+  color: white;
+
+  border: 0;
+}
+
+.primary:disabled,
+.whatsapp:disabled,
+.outline:disabled {
+  opacity: .5;
+
+  cursor: not-allowed;
+}
+
+.full {
+  width: 100%;
+
+  margin-top: 10px;
+}
+
+
+/* =========================
+   BUTTON ROW
+========================= */
+
+.button-row {
+  display: flex;
+
+  gap: 8px;
+
+  margin: 10px 0;
+}
+
+.button-row > * {
+  flex: 1;
+}
+
+
+/* =========================
+   SECTION TITLE
+========================= */
+
+.section-title {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-bottom: 8px;
+}
+
+
+/* =========================
+   BILL ITEMS
+========================= */
+
+.item-row {
+  border: 1px solid #e5e7eb;
+
+  border-radius: 12px;
+
+  padding: 10px;
+
+  margin: 9px 0;
+
+  background: #fafafa;
+}
+
+.item-grid {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    72px
+    85px
+    82px;
+
+  gap: 6px;
+}
+
+.item-grid input,
+.item-grid select {
+  min-width: 0;
+
+  padding: 10px 7px;
+
   font-size: 13px;
 }
 
-main {
-  padding: 24px 20px;
-}
+.item-grid .amount {
+  background: #f3f4f6;
 
-.main-card {
-  width: 100%;
-  min-height: 150px;
-  border: 0;
-  border-radius: 24px;
-  background: #111827;
-  color: #ffffff;
-  box-shadow: 0 12px 30px rgba(0,0,0,.14);
-  transition: transform .15s ease;
-}
+  padding: 11px 5px;
 
-.main-card:active {
-  transform: scale(.98);
-}
+  border-radius: 9px;
 
-.main-card .icon {
-  display: block;
-  font-size: 45px;
-  margin-bottom: 10px;
-}
-
-.main-card strong {
-  font-size: 24px;
-  letter-spacing: 1px;
-}
-
-.secondary-card {
-  width: 100%;
-  margin-top: 18px;
-  min-height: 82px;
-  border: 1px solid #e5e7eb;
-  border-radius: 20px;
-  background: #ffffff;
-  color: #111827;
-  font-size: 18px;
-  font-weight: 700;
-  box-shadow: 0 5px 18px rgba(0,0,0,.06);
-}
-
-.secondary-card span {
-  font-size: 30px;
-  vertical-align: middle;
-  margin-right: 8px;
-}
-
-.footer {
   text-align: center;
-  color: #6b7280;
-  font-size: 12px;
-  padding: 24px 18px;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  overflow: hidden;
 }
 
-.menu {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  background: rgba(0,0,0,.45);
+.remove {
+  border: 0;
+
+  background: #fee2e2;
+
+  color: #b91c1c;
+
+  border-radius: 8px;
+
+  padding: 8px 14px;
+
+  cursor: pointer;
+
+  font-weight: 700;
 }
 
-.menu-panel {
-  width: min(310px, 86vw);
-  height: 100%;
-  margin-left: auto;
-  padding: 22px 18px;
-  background: #ffffff;
-  overflow-y: auto;
-  box-shadow: -8px 0 25px rgba(0,0,0,.15);
+
+/* =========================
+   BILL SUMMARY
+========================= */
+
+.summary {
+  margin-top: 14px;
+
+  background: #f9fafb;
+
+  border-radius: 12px;
+
+  padding: 12px;
+
+  line-height: 2;
 }
 
-.menu-title {
-  margin: 5px 0 20px;
-  font-size: 21px;
+.summary div {
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 10px;
+}
+
+.summary b {
   font-weight: 800;
 }
 
-.close-menu {
-  float: right;
-  width: 38px;
-  height: 38px;
-  border: 0;
+
+/* =========================
+   CUSTOMER SUGGESTIONS
+========================= */
+
+.suggestions {
+  margin-top: 5px;
+
   border-radius: 10px;
-  background: #f3f4f6;
-  font-size: 24px;
+
+  overflow: hidden;
 }
 
-.menu-item {
-  display: block;
-  width: 100%;
-  margin-bottom: 9px;
+.suggestions div {
+  padding: 10px;
+
+  border-bottom: 1px solid #eeeeee;
+
+  background: #fafafa;
+
+  cursor: pointer;
+
+  font-size: 13px;
+}
+
+.suggestions div:active {
+  background: #eef2ff;
+}
+
+
+/* =========================
+   LIST CARDS
+========================= */
+
+.list-card {
+  background: white;
+
   padding: 14px;
-  border: 0;
-  border-radius: 13px;
-  background: #f3f4f6;
-  color: #111827;
-  text-align: left;
+
+  border-radius: 14px;
+
+  margin: 9px 0;
+
+  box-shadow: 0 2px 7px #0000000a;
+}
+
+.list-card b {
   font-size: 15px;
 }
 
-.menu-item:active {
-  background: #e5e7eb;
+.muted {
+  color: #6b7280;
+
+  font-size: 13px;
+
+  margin-top: 4px;
+}
+
+
+/* =========================
+   BALANCE
+========================= */
+
+.balance {
+  font-weight: 800;
+
+  font-size: 18px;
+
+  margin-top: 6px;
+}
+
+.positive {
+  color: #dc2626;
+}
+
+.negative {
+  color: #059669;
+}
+
+
+/* =========================
+   TRANSACTION
+========================= */
+
+.txn {
+  border-top: 1px solid #eeeeee;
+
+  padding: 10px 0;
+}
+
+.txn:first-child {
+  border-top: 0;
+}
+
+
+/* =========================
+   FILE INPUT
+========================= */
+
+.file-label {
+  display: block;
+
+  text-align: center;
+
+  background: #eef2ff;
+
+  border-radius: 10px;
+
+  padding: 14px;
+
+  margin-top: 10px;
+
+  color: #1e40af;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.file-label input {
+  display: none;
+}
+
+
+/* =========================
+   ABOUT
+========================= */
+
+.about {
+  text-align: center;
+
+  line-height: 1.7;
+}
+
+.about h2 {
+  margin-bottom: 5px;
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+#toast {
+  position: fixed;
+
+  bottom: 20px;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  background: #111827;
+
+  color: white;
+
+  padding: 11px 16px;
+
+  border-radius: 10px;
+
+  display: none;
+
+  z-index: 100;
+
+  max-width: 90%;
+
+  text-align: center;
+
+  font-size: 14px;
+
+  box-shadow: 0 5px 20px #0004;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 520px) {
+
+  .screen {
+    padding: 10px;
+  }
+
+  .big-grid {
+    gap: 8px;
+  }
+
+  .action {
+    min-height: 140px;
+
+    border-radius: 17px;
+  }
+
+  .item-grid {
+    grid-template-columns:
+      minmax(0, 1fr)
+      62px
+      76px
+      70px;
+
+    gap: 5px;
+  }
+
+  .item-grid input,
+  .item-grid select {
+    padding: 9px 5px;
+
+    font-size: 12px;
+  }
+
+  .item-grid .amount {
+    font-size: 11px;
+  }
+
+  .button-row {
+    gap: 7px;
+  }
+
+}
+
+
+/* =========================
+   VERY SMALL PHONE
+========================= */
+
+@media (max-width: 380px) {
+
+  .topbar b {
+    font-size: 15px;
+  }
+
+  .topbar small {
+    font-size: 10px;
+  }
+
+  .hero h1 {
+    font-size: 21px;
+  }
+
+  .big-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .action {
+    min-height: 120px;
+  }
+
+  .item-grid {
+    grid-template-columns:
+      1fr 58px 70px 64px;
+  }
+
+}
+
+
+/* =========================
+   SAFE AREA
+========================= */
+
+@supports (padding: env(safe-area-inset-bottom)) {
+
+  body {
+    padding-bottom:
+      env(safe-area-inset-bottom);
+  }
+
+}
+
+
+/* =========================
+   DISABLE TEXT SELECTION
+   ON BUTTONS
+========================= */
+
+button {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+
+/* =========================
+   SMOOTH TOUCH
+========================= */
+
+button,
+input,
+select,
+textarea {
+  touch-action: manipulation;
 }
